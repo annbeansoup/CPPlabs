@@ -1,5 +1,48 @@
 # CPPlabs
+#include <iostream>
 
+struct StepeniGrustnosti {
+    int sadness; 
+    int vospriimchivosti; //skoliko nado sek chotbi grustnosti ubrati
+      
+};
+//naushniki gde nahodissya po vremeni, nado chtobi stavilasi pauza posle ischerpania grustonosti
+struct DlitelnostiMusic {
+    int second;     
+    
+};
+
+struct Naushniki {        
+    DlitelnostiMusic playhead; 
+};
+
+DlitelnostiMusic computeTimeToRemoveSad(StepeniGrustnosti stepeni){
+    int second=stepeni.sadness*stepeni.vospriimchivosti;
+    return { second };
+}
+
+struct GrustnyyCel
+{
+StepeniGrustnosti sad;
+};
+
+void slushati(Naushniki* naushniki,GrustnyyCel* cel)
+{
+    auto t = computeTimeToRemoveSad(cel->sad);
+    naushniki.playhead = { naushniki.playhead->second + t.second };
+    cel->sad.sadness = 0;
+}
+
+
+int main() {
+    
+    GrustnyyCel chel{{100,2}};
+    Naushniki naushniki{{0,0}};
+    slushati(&naushniki,&chel);
+    std::cout<<"grustnosti: "<<chel.sad.sadness<<std::endl;
+    std::cout<<"music stop cherez: "<<naushniki.playhead.min<<naushniki.playhead.second<<std::endl;
+
+}
 # 1. Стоимость заказа
 
 Подсчёт итоговой стоимости заказа клиента на основе цен на напитки, первое и второе блюдо.
